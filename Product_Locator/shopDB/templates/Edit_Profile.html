@@ -1,0 +1,271 @@
+
+
+<!DOCTYPE html>
+
+<html>
+
+<!-- {%load staticfiles %} -->
+{% load static from staticfiles %}
+
+<head>
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<!--
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+-->
+
+<link href="{% static '/shop_db/css/bootstrap_4.css' %}" rel="stylesheet" id="bootstrap-css">
+<link href="{% static '/shop_db/css/shop_user_profile_up.css' %}" rel="stylesheet" id="shop_user">
+<script src="{% static '/shop_db/js/bootstrap_4.js' %}"></script>
+<script src="{% static '/shop_db/js/jquery3_2_1.js' %}"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+
+
+
+</head>
+
+
+<body>
+    <div class="container main-secction all">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 image-section" >
+				<!-- Top image ********************************************** -->
+                <!-- img src="https://png.pngtree.com/thumb_back/fw800/back_pic/00/08/57/41562ad4a92b16a.jpg"-->
+				<img src="{% static '/shop_db/img/header.jpg' %}">
+            </div>
+
+            <div class="row user-left-part">
+
+                <div class="col-md-3 col-sm-3 col-xs-3 user-profil-part pull-left">
+                    <!--div class="row "-->
+
+                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+						<!-- profile image ********************************************
+                            <img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="rounded-circle">
+                            --->
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+							<!-- options under profile pics -->
+                            <a href="{% url 'shopDB:user_home' shp_id=Shop.ShopID %}" class="btn btn-success btn-block follow">Home</a>
+                            <a href="{% url 'shopDB:edit_Info' shp_id=Shop.ShopID  %}" class="btn btn-success btn-block follow">Edit Info</a>
+                            <a href="{% url 'shopDB:shop_products'  shp_id=Shop.ShopID %}" class="btn btn-success btn-block follow">View All Products</a>
+                            <a href="{% url 'shopDB:add_products' shp_id=Shop.ShopID%}" class="btn btn-success btn-block follow">Add Product</a>
+                            <a href="{% url 'shopDB:sells_logs' shp_id=Shop.ShopID%}" class="btn btn-success btn-block follow">Sales Log</a>
+                            <a href="{% url 'shopDB:shop_logout' shp_id=Shop.ShopID %}" class="btn btn-primary btn-block">Log Out</a>
+							<!--
+							<a href="/search" class="btn btn-primary btn-block">View All Products</a>
+							-->
+                        <!--/div-->
+
+                    </div>
+                </div>
+
+
+
+				<div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
+				
+					<!-- write your codes here
+					{% block content %} -->
+
+					    <link href="{% static '/shop_db/css/bootstrap_3.css' %}" rel="stylesheet" id="bootstrap-css2">
+						<script src="{% static '/shop_db/js/bootstrap_3.js' %}"></script>
+						<script src="{% static '/shop_db/js/jquery1_11.js' %}"></script>
+						<!------ Include the above in your HEAD tag ---------->
+
+
+
+
+						<div class="container" style="padding-top: 0px;">
+						  <h1 class="page-header" style="color:red" align="left"><b>Edit Information</b></h1>
+						  <div class="row">
+							<!-- left column --
+							<div class="col-md-3 col-sm-6 col-xs-12">
+							  <div class="text-center">
+								<img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="avatar img-circle img-thumbnail" alt="avatar">
+								<h6>Change Profile Picture...</h6>
+								<input type="file" class="text-center center-block well well-sm">		<!-- Image Input Here --
+							  </div>
+							</div>
+                            -->
+							<!-- edit form column -->
+							<div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+							<!--
+							  <div class="alert alert-info alert-dismissable">
+								<a class="panel-close close" data-dismiss="alert">×</a>
+								<i class="fa fa-coffee"></i>
+								This is an <strong>.alert</strong>. Use this to show important messages to the user.
+							  </div>
+							-->
+							  <h2 align="center" style="color:blue"><b>Shop info</b></h2><br>
+							  <!-- <p align="center" style="color:blue"><font size="5px">{{User.iduser}}</font></p> -->
+
+							  <form class="form-horizontal" role="form" action="/shop/editInfo/" method="POST">
+											{% csrf_token %}
+
+								<div class="form-group">
+								  <label class="col-lg-3 control-label">ID:</label>
+								  <div class="col-lg-8">
+									<input class="form-control" value="{{Shop.ShopID}}" type="text" name="id_use" readonly>
+								  </div>
+								</div>
+
+								<div class="form-group">
+								  <label class="col-lg-3 control-label">SHOP NAME:</label>
+								  <div class="col-lg-8">
+									<input class="form-control" value="{{Shop.ShopName}}" type="text" name="shop_name">
+									<!-- <p>{{User.name}}</p> -->
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-lg-3 control-label">LOCATION:</label>
+								  <div class="col-lg-8">
+									<input class="form-control" value="{{Shop.Location}}" type="text" name="shop_location">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-lg-3 control-label">Proprietor:</label>
+								  <div class="col-lg-8">
+									<input class="form-control" value="{{Shop.UserName}}" type="text" name="user_name">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-lg-3 control-label">MOBILE:</label>
+								  <div class="col-lg-8">
+									<input class="form-control" value="{{Shop.ContactNumber}}" type="text" name="shop_mobile">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-lg-3 control-label">Email:</label>
+								  <div class="col-lg-8">
+									<input class="form-control" value="{{Shop.Email}}" type="email" name="shop_mail">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-lg-3 control-label">Latitude:</label>
+								  <div class="col-lg-8">
+									<input class="form-control" value="{{Shop.Latitude}}" type="text" name="lati">
+								  </div>
+								</div>
+
+								<div class="form-group">
+								  <label class="col-lg-3 control-label">Longitude:</label>
+								  <div class="col-lg-8">
+									<input class="form-control" value="{{Shop.Longitude}}" type="text" name="longi">
+								  </div>
+								</div>
+
+								<!--
+								<div class="form-group">
+								  <label class="col-lg-3 control-label">Time Zone:</label>
+								  <div class="col-lg-8">
+									<div class="ui-select">
+									  <select id="user_time_zone" class="form-control">
+										<option value="Hawaii">(GMT-10:00) Hawaii</option>
+										<option value="Alaska">(GMT-09:00) Alaska</option>
+										<option value="Pacific Time (US & Canada)">(GMT-08:00) Pacific Time (US & Canada)</option>
+										<option value="Arizona">(GMT-07:00) Arizona</option>
+										<option value="Mountain Time (US & Canada)">(GMT-07:00) Mountain Time (US & Canada)</option>
+										<option value="Central Time (US & Canada)" selected="selected">(GMT-06:00) Central Time (US & Canada)</option>
+										<option value="Eastern Time (US & Canada)">(GMT-05:00) Eastern Time (US & Canada)</option>
+										<option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
+									  </select>
+									</div>
+								  </div>
+								</div>
+
+								<div class="form-group">
+								  <label class="col-lg-3 control-label">Date Of Birth:</label>
+								  <div class="col-lg-8">
+									<input class="form-control"  value="{{User.birthyear}}" type="date" name="user_dob">
+									<!--dateformat = "YYYY-MM-DD"		doesn't work-
+								  </div>
+								</div>
+
+								<div class="form-group">
+								  <label class="col-md-3 control-label">Username:</label>
+								  <div class="col-md-8">
+									<input class="form-control" value="{{User.name}}" type="text" name="user_usname">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-md-3 control-label">Password:</label>
+								  <div class="col-md-8">
+									<input class="form-control" value="12345" type="password" name="user_pass">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-md-3 control-label">Confirm password:</label>
+								  <div class="col-md-8">
+									<input class="form-control" value="12345" type="password" name="user_pass">
+								  </div>
+								</div>
+								-->
+
+								  <!--  alert input-->
+								<div class="form-group" >
+								  <!-- just for spacing -->
+								</div>
+
+								   <!--  alert input-->
+								<div class="form-group" >
+								  {% if messages %}
+									<ul class="messages">
+										{% for mess in messages %}
+										<li>
+											<div class="alert alert-success alert-dismissable"><p align="center"><b> {{mess}} </b></p> </div>
+										</li>
+										{% endfor %}
+									</ul>
+								  {% endif %}
+								</div>
+								  <!--  alert input-->
+								<div class="form-group" >
+								  <!-- just for spacing -->
+								</div>
+
+								<div class="form-group">
+								  <label class="col-md-3 control-label"></label>
+								  <div class="col-md-8">
+									<!-- <input class="btn btn-primary" value="Save Changes" type="button"> -->
+									<button id="savebutton" name="savebutton" class="btn btn-primary" type="submit">Save Changes</button>
+									<span></span>
+									<input class="btn btn-default" value="Cancel" type="reset">
+								  </div>
+								</div>
+
+
+
+							  </form>
+							  <Br><Br><Br><Br>
+							</div>
+						  </div>
+						</div>
+
+					<!-- {% endblock %}
+					till here ---->
+				</div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+	<!--
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	-->
+
+</body>
+</html>

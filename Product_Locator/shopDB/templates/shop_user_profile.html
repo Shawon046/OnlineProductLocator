@@ -1,0 +1,273 @@
+
+<html>
+
+{%load staticfiles %}
+
+<head>
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<!--
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+-->
+
+<link href="{% static '/shop_db/css/bootstrap_4.css' %}" rel="stylesheet" id="bootstrap-css">
+<link href="{% static '/shop_db/css/shop_user_profile_up.css' %}" rel="stylesheet" id="shop_user">
+<script src="{% static '/shop_db/js/bootstrap_4.js' %}"></script>
+<script src="{% static '/shop_db/js/jquery3_2_1.js' %}"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+
+</head>
+
+
+<body>
+    <div class="container main-secction">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 image-section">
+				<!-- Top image **********************--><!-- img src="https://png.pngtree.com/thumb_back/fw800/back_pic/00/08/57/41562ad4a92b16a.jpg"-->
+				<img src="{% static '/shop_db/img/header.jpg' %}">
+            </div>
+			
+			
+            <div class="row user-left-part">
+                <div class="col-md-3 col-sm-3 col-xs-3 user-profil-part pull-left">
+                    <div class="row ">
+					
+                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+						<!-- profile image ********************************************-->
+                            <!-- img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="rounded-circle"-->
+                        </div>
+						
+                        <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+							<!-- options under profile pics --------------->
+							<a href="{% url 'shopDB:user_home' shp_id=Shop.ShopID %}" class="btn btn-success btn-block follow">Home</a>
+                            <a href="{% url 'shopDB:edit_Info' shp_id=Shop.ShopID  %}" class="btn btn-success btn-block follow">Edit Info</a>
+                            <a href="{% url 'shopDB:shop_products' shp_id=Shop.ShopID %}" class="btn btn-success btn-block follow">View All Products</a>
+                            <a href="{% url 'shopDB:add_products' shp_id=Shop.ShopID %}" class="btn btn-success btn-block follow">Add Product</a>
+                            <a href="{% url 'shopDB:sells_logs' shp_id=Shop.ShopID %}" class="btn btn-success btn-block follow">Sales Log</a>
+                            <a href="{% url 'shopDB:shop_logout' shp_id=Shop.ShopID %}" class="btn btn-primary btn-block">Log Out</a>
+							
+                        </div> 
+						<!----
+                        <div class="row user-detail-row">
+                            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                                <div class="border"></div>
+                                <p>FOLLOWER</p>
+                                <span>320</span>
+                            </div>                           
+                        </div>
+                       ----->
+                    </div>
+                </div>
+				
+				
+				
+                <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
+                    <div class="row profile-right-section-row">
+                        <div class="col-md-12 profile-header">
+                            <div class="row">
+                                <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
+                                    <h1 align="center" style="color:blue">{{Shop.name}}</h1>
+                                    <!-- <h6 style="color:red">{{Shop.category}}</h6>   -->
+                                </div>
+                                <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
+                                    <!--a href="{% url 'shopDB:login_shop' %}" class="btn btn-primary btn-block">Log Outs</a-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-8">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                                <li class="nav-item">
+                                                  <a class="nav-link active" href="#shop" role="tab" data-toggle="tab"><i class="fas fa-user-circle"></i><b> Shop Info</b></a>
+                                                </li>
+                                                <li class="nav-item">
+                                                  <a class="nav-link" href="#user" role="tab" data-toggle="tab"><i class="fas fa-info-circle"></i><b> Contact Info</b></a>
+                                                </li>                                                
+                                        </ul>
+                                               <!-- It's just garbage  fade show 	-->
+                                              <!-- Tab panes -->
+                                              <div class="tab-content">
+                                                <div role="tabpanel" class="tab-pane active in" id="shop">
+															<div class="row" style="height:50px">
+                                                                <div class="col-md-6">
+                                                                    <label></label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p></p>
+                                                                </div>
+                                                            </div>
+                                                        <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Shop ID</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{Shop.ShopID}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Shop Name</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{Shop.ShopName}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Location</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{Shop.Location}}</p>
+                                                                </div>
+                                                            </div>
+									<!--
+                                                            <div class="row">
+                                                                <div class="col-md-2">
+                                                                    <label>Teléfono</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>12345678</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-2">
+                                                                    <label>Profesion</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>Developer</p>
+                                                                </div>
+                                                            </div>
+									-->
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="user">
+												
+															<div class="row" style="height:50px">
+                                                                <div class="col-md-6">
+                                                                    <label></label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p></p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">																
+																
+                                                                <div class="col-md-6">
+                                                                    <label>Owner Name</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{Shop.UserName}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Contact No</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{Shop.ContactNumber}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>E-mail</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{Shop.Email}}</p>
+                                                                </div>
+                                                            </div>
+
+										<!--
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <label>Your Bio</label>
+                                                                    <br/>
+                                                                    <p>Your detail description</p>
+                                                                </div>
+                                                            </div>
+											--->
+                                                </div>
+                                                
+                                              </div>
+                          
+                                </div>
+                                <div class="col-md-4 img-main-rightPart">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row image-right-part">
+                                                <div class="col-md-6 pull-left image-right-detail">
+                                                    <!--h6>Online Product Locator</h6-->
+                                                </div>
+                                            </div>
+                                        </div>
+										<!-- Use home page as reference here ********************************-->
+                                        <a href="http://127.0.0.1:8000/homepage/">
+                                            <div class="col-md-12 image-right">
+											<!-- Bootstrap (B) image *************************************-->
+                                                <!--img align="center" src="http://127.0.0.1:8000/shopDB/media/img/mylogo.png"-->
+                                            </div>
+                                        </a>
+                                        <div class="col-md-12 image-right-detail-section2">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+	<!---
+	
+    <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contact">Contactarme</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <p for="msj">Se enviará este mensaje a la persona que desea contactar, indicando que te quieres comunicar con el. Para esto debes de ingresar tu información personal.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtFullname">Nombre completo</label>
+                        <input type="text" id="txtFullname" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEmail">Email</label>
+                        <input type="text" id="txtEmail" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtPhone">Teléfono</label>
+                        <input type="text" id="txtPhone" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="openModal()" data-dismiss="modal">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	--->
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
+</body>
+</html>

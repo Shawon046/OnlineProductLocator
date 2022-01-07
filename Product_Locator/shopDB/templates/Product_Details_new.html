@@ -1,0 +1,164 @@
+
+
+<!DOCTYPE html>
+
+<html>
+
+<!-- {%load staticfiles %} -->
+{% load static from staticfiles %}
+
+<head>
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<!--
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+-->
+
+<link href="{% static '/shop_db/css/bootstrap_4.css' %}" rel="stylesheet" id="bootstrap-css">
+<link href="{% static '/shop_db/css/shop_user_profile_up.css' %}" rel="stylesheet" id="shop_user">
+<script src="{% static '/shop_db/js/bootstrap_4.js' %}"></script>
+<script src="{% static '/shop_db/js/jquery3_2_1.js' %}"></script>
+<!------ Include the above in your HEAD tag ---------->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<style>
+	.product_view{
+		max-width: 800px; 
+		width: 100%;
+	} 
+	.modal-dialog{
+		max-width: 800px; 
+		width: 100%;
+	}
+
+    .pre-cost{
+		text-decoration: line-through; 
+		color: #a5a5a5;
+	}
+    .space-ten{
+		padding: 10px 0;
+	}
+		
+</style>
+
+
+</head>
+
+
+<body>
+    <div class="container main-secction all">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 image-section" >
+				<!-- Top image ********************************************** -->
+                <!-- img src="https://png.pngtree.com/thumb_back/fw800/back_pic/00/08/57/41562ad4a92b16a.jpg"-->
+				<img src="{% static '/shop_db/img/header.jpg' %}">
+            </div>
+
+            <div class="row user-left-part">
+
+                <div class="col-md-3 col-sm-3 col-xs-3 user-profil-part pull-left">
+                    <!--div class="row "-->
+
+                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+						<!-- profile image ********************************************
+                            <img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="rounded-circle">
+                            --->
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+							<!-- options under profile pics -->
+                            <a href="{% url 'shopDB:user_home' shp_id=Shop.ShopID %}" class="btn btn-success btn-block follow">Home</a>
+                            <a href="{% url 'shopDB:edit_Info' shp_id=Shop.ShopID  %}" class="btn btn-success btn-block follow">Edit Info</a>
+                            <a href="{% url 'shopDB:shop_products'  shp_id=Shop.ShopID %}" class="btn btn-success btn-block follow">View All Products</a>
+                            <a href="{% url 'shopDB:add_products' shp_id=Shop.ShopID%}" class="btn btn-success btn-block follow">Add Product</a>
+                            <a href="{% url 'shopDB:sells_logs' shp_id=Shop.ShopID%}" class="btn btn-success btn-block follow">Sales Log</a>
+                            <a href="{% url 'shopDB:shop_logout' shp_id=Shop.ShopID %}" class="btn btn-primary btn-block">Log Out</a>
+							<!--
+							<a href="/search" class="btn btn-primary btn-block">View All Products</a>
+							-->
+                        <!--/div-->
+
+                    </div>
+                </div>
+
+				
+				
+				<div class="col-md-9 col-sm-9 col-xs-12 pull-right">
+					<!-- write your codes here -->
+					{% block content %}
+					
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6">
+								  <div class="thumbnail">
+						<div class="space-ten"></div><div class="space-ten"></div>
+					<!--	<img src="http://tech.firstpost.com/wp-content/uploads/2014/09/Apple_iPhone6_Reuters.jpg" alt="" class="img-responsive"> -->
+									{% if Product.image %}
+									<a href="{% url 'shopDB:details' slug=Product.ProductName shp_id=Shop.ShopID %}">
+									<img src="{{ Product.image.url}}" alt="{{Product.ProductName}}" class="img-responsive" style="width:500px">
+									</a>
+									{% else %}
+								   <h1 align="center" style="color:red">No image available</h1>
+									{% endif %}
+									<div class="caption">
+										</br>
+									  <h4 style="color:#000080" align="center">{{Product.ProductName}}</h4>
+									  <h4 class="pull-right" style="color:#990099"><span>&#2547;</span> {{Product.SellingPrice}}</h4>
+									  <h6>Buying Cost : {{Product.BuyingPrice}}</h6>
+									  <h6>Selling Price : {{Product.SellingPrice}}</h6>
+									  <h6>Discount : {{Product.discount}}</h6>
+									  <h6>Available : {{Product.Quantity}} pcs</h6>
+									  <h6>Mfg Date : {{Product.Mfg}}</h6>
+									  <h6>Exp Date : {{Product.Exp}}</h6>
+									</div>
+									<!--div class="ratings">
+									  <p>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										<span class="glyphicon glyphicon-star"></span>
+										 (15 reviews)
+									  </p>
+									</div>
+									<div class="space-ten"></div-->
+									<div class="btn-ground text-center">
+										
+										<a href="{% url 'shopDB:edit_products' slug=Product.ProductName shp_id=Shop.ShopID %}" class=" btn btn-primary btn-block follow">Edit Product</a>
+										<a href="{% url 'shopDB:sell_products' slug=Product.ProductName shp_id=Shop.ShopID %}" class=" btn btn-primary btn-block follow">Sell Product</a>
+									</div>
+									<div class="space-ten"></div>
+								  </div>
+								</div>
+								<div class="space-ten"></div>
+								  </div>
+								</div>
+							</div>
+						</div>
+
+
+					{% endblock %}
+					<!-- till here ---->
+				</div>
+				
+				
+				
+            </div>
+        </div>
+    </div>
+
+
+	
+	<!-- 
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	-->
+	
+</body>
+</html>

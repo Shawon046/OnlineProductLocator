@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% load static from staticfiles %}
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static '/shop_db/css/login_style.css' %}">
+  </head>
+  <body>
+  
+	
+  
+<div class="login-box">
+  <h1>Login</h1>
+
+  <form action="/shop/" method="POST">
+    {% csrf_token %}
+
+    <div class="textbox">
+      <i class="fas fa-user"></i>
+      <input type="text" placeholder="Username" name="username" required>
+    </div>
+
+    <div class="textbox">
+      <i class="fas fa-lock"></i>
+      <input type="password" placeholder="Password" name="psw" required>
+    </div>
+
+    <button type="submit" class="btn">Sign in</button>
+
+  </form>
+  <div class="login-register" align="center">
+		<p style="color:white"> Don't have a account? </p><a href="{% url 'shopDB:user_regs' %}"><p style="color:white"><b>SignUp</b></p></a>
+	</div>
+  
+  
+</div>
+  </body>
+</html>

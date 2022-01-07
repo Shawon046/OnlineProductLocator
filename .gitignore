@@ -3,8 +3,8 @@
 # Default ignored files
 /shelf/
 /workspace.xml
-/.idea # file
-.idea/ # folder
+.idea
+# .idea/ # folder
 venv/ 
 *.mp4 # RE files - is not working
 *.pdf

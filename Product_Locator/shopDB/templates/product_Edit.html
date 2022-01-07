@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+
+<html>
+
+<!-- {%load staticfiles %} -->
+{% load static from staticfiles %}
+
+<head>
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<!--
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+-->
+
+<link href="{% static '/shop_db/css/bootstrap_4.css' %}" rel="stylesheet" id="bootstrap-css">
+<link href="{% static '/shop_db/css/shop_user_profile_up.css' %}" rel="stylesheet" id="shop_user">
+<script src="{% static '/shop_db/js/bootstrap_4.js' %}"></script>
+<script src="{% static '/shop_db/js/jquery3_2_1.js' %}"></script>
+<!------ Include the above in your HEAD tag ---------->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+
+
+</head>
+
+
+<body>
+    <div class="container main-secction all">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 image-section" >
+				<!-- Top image ********************************************** -->
+                <!-- img src="https://png.pngtree.com/thumb_back/fw800/back_pic/00/08/57/41562ad4a92b16a.jpg"-->
+				<img src="{% static '/shop_db/img/header.jpg' %}">
+            </div>
+
+            <div class="row user-left-part">
+
+                <div class="col-md-3 col-sm-3 col-xs-3 user-profil-part pull-left">
+                    <!--div class="row "-->
+
+                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+						<!-- profile image ********************************************
+                            <img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="rounded-circle">
+                            --->
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+							<!-- options under profile pics -->
+                            <a href="{% url 'shopDB:user_home' shp_id=Shop.ShopID %}" class="btn btn-success btn-block follow">Home</a>
+                            <a href="{% url 'shopDB:edit_Info' shp_id=Shop.ShopID  %}" class="btn btn-success btn-block follow">Edit Info</a>
+                            <a href="{% url 'shopDB:shop_products'  shp_id=Shop.ShopID %}" class="btn btn-success btn-block follow">View All Products</a>
+                            <a href="{% url 'shopDB:add_products' shp_id=Shop.ShopID%}" class="btn btn-success btn-block follow">Add Product</a>
+                            <a href="{% url 'shopDB:sells_logs' shp_id=Shop.ShopID%}" class="btn btn-success btn-block follow">Sales Log</a>
+                            <a href="{% url 'shopDB:shop_logout' shp_id=Shop.ShopID %}" class="btn btn-primary btn-block">Log Out</a>
+							<!--
+							<a href="/search" class="btn btn-primary btn-block">View All Products</a>
+							-->
+                        <!--/div-->
+
+                    </div>
+                </div>
+
+
+
+				<div class="col-md-9 col-sm-9 col-xs-12 pull-right">
+					<!-- write your codes here
+					{% block content %} -->
+
+
+						<link href="/static/shop_db/css/bootstrap_3_2_0.css" rel="stylesheet" id="bootstrap-css2">
+						<script src="/static/shop_db/js/bootstrap_3_2_0.js"></script>
+						<script src="/static/shop_db/js/jquery1_11.js"></script>
+						<!------ Include the above in your HEAD tag ---------->
+						
+						<div class="container" style="padding-top: 10px; padding-bottom: 70px;">
+						  <h1 class="page-header" style="color:blue" align="left"><b>Edit Product</b></h1>
+
+
+						<form class="form-horizontal" action="/shop/Edit_Product/" method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+						<fieldset>
+
+						<!-- Form Name --
+						<legend><h1 style="color:blue">EDIT PRODUCT</h1></legend>
+						
+						<!-- Text input-->
+						<div class="form-group">
+						  <div class="col-md-4">
+						  </div>
+						</div>
+
+						<!-- Text input-->
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="product_id">PRODUCT ID</label>
+						  <div class="col-md-4">
+						  <input id="product_id" name="product_id" value="{{Product.ProductID}}" class="form-control input-md" required="" type="text" readonly>
+
+						  </div>
+						</div>
+
+						<!-- Text input-->
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
+						  <div class="col-md-4">
+						  <input id="product_name" name="product_name" value="{{Product.ProductName}}" class="form-control input-md" required="" type="text">
+
+						  </div>
+						</div>
+
+							<input id="shops_idd" name="shops_idd" value="{{Shop.ShopID}}" class="form-control input-md"  type="hidden">
+						<!-- Text input--
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="product_name_fr">PRODUCT DESCRIPTION FR</label>
+						  <div class="col-md-4">
+						  <input id="product_name_fr" name="product_name_fr" placeholder="PRODUCT DESCRIPTION FR" class="form-control input-md" required="" type="text">
+
+						  </div>
+						</div>
+
+						<!-- Select Basic -->
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="product_cost">BUYING PRICE/PRODUCTION COST</label>
+						  <div class="col-md-4">
+							<input id="product_cost" name="product_cost" value="{{Product.BuyingPrice}}" class="form-control input-md" required="" type="number">
+							<!-- <select id="product_categorie" name="product_categorie" class="form-control"> </select> -->
+						  </div>
+						</div>
+
+						<!-- Text input-->
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="available_quantity">AVAILABLE QUANTITY</label>
+						  <div class="col-md-4">
+						  <input id="available_quantity" name="available_quantity" value="{{Product.Quantity}}" class="form-control input-md"  type="text">
+
+						  </div>
+						</div>
+
+						<!-- Text input-->
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="product_sell_price">PRODUCT SELL PRICE</label>
+						  <div class="col-md-4">
+						  <input id="product_sell_price" name="product_sell_price" value="{{Product.SellingPrice}}" class="form-control input-md" required="" type="number" min="0">
+
+						  </div>
+						</div>
+
+						<!-- Textarea --
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="product_name_fr">PRODUCT DESCRIPTION FR</label>
+						  <div class="col-md-4">
+							<textarea class="form-control" id="product_name_fr" name="product_name_fr"></textarea>
+						  </div>
+						</div>
+
+						<!-- Text input--
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="percentage_discount">PERCENTAGE DISCOUNT</label>
+						  <div class="col-md-3">
+						  <input id="percentage_discount" name="percentage_discount" value="{{Product.discount}}" class="form-control input-md"  type="text" readonly>
+						  </div>
+						  <div class="col-md-3">
+						  </div>
+						</div>
+						
+						<!-- Text input-->
+					<div class="form-group">
+					  <label class="col-md-4 control-label" for="percentage_discount">PERCENTAGE DISCOUNT</label>
+					  <div class="col-md-3">
+						<select name="percentage_discount" id="percentage_discount" value="{{Product.discount.DiscountID}}" class="form-control input-md" size="1">
+							<option value="{{Product.discount.DiscountID}}">{{Product.discount}}</option>
+							{% for disc in discounts %}
+								{% if Product.discount != disc %}
+								<option value="{{disc.DiscountID}}">{{disc}}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					  </div>
+					  <div class="col-md-3">
+						<a id="bttn" name="bttn" class="btn btn-primary" onclick="JavaScript:newPopup({% url 'online:add_disc' %})" ><font size="3px"><b>Add</b></font></a>
+					  </div>
+					</div>
+
+					<div class="form-group">
+					  <label class="col-md-4 control-label">Mfg Date:</label>
+					  <div class="col-md-3">
+						<input class="form-control" id="prod_mfg" type="date" name="prod_mfg" value="{{Product.Mfg}}">
+						<!--dateformat = "YYYY-MM-DD"		doesn't work-->
+					  </div>
+					</div>
+					
+					<div class="form-group">
+					  <label class="col-md-4 control-label">Exp Date:</label>
+					  <div class="col-md-3">
+						<input class="form-control" id="prod_exp" type="date" name="prod_exp" value="{{Product.Exp}}">
+					  </div>
+					</div>
+
+						
+
+						<!-- Text input--
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="comment">COMMENT</label>
+						  <div class="col-md-4">
+						  <input id="comment" name="comment" placeholder="COMMENT" class="form-control input-md" required="" type="text">
+
+						  </div>
+						</div>
+
+						<!--  alert input-->
+					<div class="form-group" >
+						<div class="col-md-4"> </div>
+						<div class="col-md-4">
+						{% if messages %}
+							<ul class="messages">
+								{% for mess in messages %}
+								<li>
+									<div class="alert alert-success alert-dismissable"><p align="center"><b> {{mess}} </b></p> </div>
+								</li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+						</div>
+					</div>
+
+						<!-- Text input--
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="approuved_by">APPROUVED BY</label>
+						  <div class="col-md-4">
+						  <input id="approuved_by" name="approuved_by" placeholder="APPROUVED BY" class="form-control input-md" required="" type="text">
+
+						 <!-- File Button --> <Br><Br>
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="filebutton">UPLOAD IMAGE</label>
+						  <div class="col-md-4">
+							<input id="filebutton" name="filebutton" class="input-file" type="file">
+						  </div>
+						</div>
+						<!-- File Button --
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="filebutton">auxiliary_images</label>
+						  <div class="col-md-4">
+							<input id="filebutton" name="filebutton" class="input-file" type="file">
+						  </div>
+						</div>
+						-->
+						<!-- Button -->
+						<div class="form-group">
+						  <label class="col-md-4 control-label" for="singlebutton">Edit PRODUCT</label>
+						  <div class="col-md-4">
+							<button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Save Changes</button>
+							<span></span>
+							<input class="btn btn-default" value="Cancel" type="reset">
+						  </div>
+						</div>
+
+							<!-- Text input-->
+						<div class="form-group">
+						  <div class="col-md-4">
+						  <input id="id_use" name="id_use" placeholder="" class="form-control input-md" type="hidden">
+						  </div>
+						</div>
+
+						</fieldset>
+						</form>
+
+
+					<!-- {% endblock %}
+					till here ---->
+				</div>
+
+
+				</div>
+            </div>
+        </div>
+    </div>
+
+
+
+<script type="text/javascript">
+//function for date 
+// $(function () {
+//    $("#{{ widget.prod_mfg }}").datetimepicker({
+//     format: 'DD/MM/YYYY HH:mm',
+//    });
+//  });
+	// Popup window code
+	function newPopup(url) {
+		popupWindow = window.open(
+			url,'popUpWindow','height=600,width=500,right=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+	}
+</script>
+
+</body>
+</html>

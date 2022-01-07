@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+{% load static from staticfiles %}
+
+<head>
+	<title>Search Home </title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- 
+<link href="css/test.css" rel="stylesheet" id="fixedHeader_css">
+<script src="css/test.js"></script>
+<link href="css/search.css" rel="stylesheet" id="searchbar-css">
+-->
+<link href="{% static '/shop_db/css/user_prod.css' %}" rel="stylesheet" id="fixedHeadercss">
+<link href="{% static '/shop_db/css/user_prod_search.css' %}" rel="stylesheet" id="searchbarCss">
+<script src="{% static '/shop_db/css/user_prod.js' %}"></script>
+
+	<!--link rel="stylesheet" href="{% static '/shop_db/css/login_style.css' %}"--
+<link rel="stylesheet" type="text/css" href="{% static '/shop_db/fixedTableHeader/css/main.css' %}">
+
+<link href="{% static '/shop_db/css/bootstrap_4.css' %}" rel="stylesheet" id="bootstrap-css">
+<link href="{% static '/shop_db/css/shop_user_profile_up.css' %}" rel="stylesheet" id="shop_user">
+<script src="{% static '/shop_db/js/bootstrap_4.js' %}"></script>
+<script src="{% static '/shop_db/js/jquery3_2_1.js' %}"></script>
+<script src="{% static '/shop_db/fixedTableHeader/js/main.js' %}"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+</head>
+<body>
+<section>
+	<div align="center">
+		<form class="example" action="/locator/find/" method="POST" style="margin:auto;max-width:40%">
+			{% csrf_token %}
+		  <input type="text" placeholder="Search.." value="{{S_val}}" name="prod_name">
+		  <input value="{{Latitude}}" name="lat" id="lat" type="hidden">
+		  <input value="{{Longitude}}" name="lon" id="lon" type="hidden">
+		  <button type="submit"><i class="fa fa-search"></i></button>
+		</form>
+	</div>
+</section>
+<section>
+  <!--for demo wrap-->
+  <h1 style="color:#800000"><b>List of Products</b></h1>
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th><h3 style="color:#4d0026" align="center">Product ID </h3></th>
+          <th><h3 style="color:#4d0026" align="center">Product Name</h3></th>
+		  <th><h3 style="color:#4d0026" align="center">Shop</h3></th>
+          <th><h3 style="color:#4d0026" align="center">Price</h3></th>
+          <th><h3 style="color:#4d0026"align="center">Distance</h3></th>
+          <th><h3 style="color:#4d0026"align="center">Image</h3></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  
+  {% for product in products_list %}
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+        <tr>
+          <td><p style="color:#000066" align="center"><font size="5px"> {{product.Product.ProductID}}</font></p></td>
+          <td><a href="{% url 'Locator:det_view' prod_id=product.Product.ProductID %}"><p style="color:#284d00" align="center"><font size="5px"> {{product.Product.ProductName}}</font></p></a></td>
+		  <td><a href="{% url 'Locator:loc_out' shp_id=product.Product.shop.ShopID %}"><p style="color:#000066" align="center"><font size="5px"> {{product.Product.shop.ShopName}}</font></p></a></td>
+          <td><p style="color:#284d00" align="center"><font size="5px"> <span>&#2547;</span>  {{product.Product.SellingPrice}} </font></p></td>
+		  <td><p style="color:#990000" align="center"><font size="5px">{{product.Dist}} KM </font></p></td>
+          <td> {% if product.Product.image %}
+				<img src="{{ product.Product.image.url}}" alt={{product.Product.ProductName}} style="max-width:400px" height="250">
+				{% endif %}
+		  </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {% endfor %}
+</section>
+</body>
+</html>

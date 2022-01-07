@@ -1,0 +1,39 @@
+
+
+
+
+<html>
+<head>
+    <title>Error Page</title>
+    <style>
+        .par {
+            position:absolute;
+            top:150px;
+            left:30%;
+        }
+    </style>
+</head>
+<body>
+
+    <p class="par" align="center">
+		<b><font size="10" style="color:#331a00">Wrong Username or Password</font></b>
+	<br /><br /><br />
+		<a href="{% url 'shopDB:login_shop' %}"><font size="6" style="color:#000099">Try again >></font></a>
+	</p>
+	
+	<!--p><a href="JavaScript:newPopup({% url 'Locator:online_func' %});">Open a popup window</a></p-->
+	
+<!--script type="text/javascript">
+	// Popup window code
+	function newPopup(url) {
+		popupWindow = window.open(
+			url,'popUpWindow','height=300,width=400,right=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+	}
+</script-->
+
+	
+	
+</body>
+</html>
+
+

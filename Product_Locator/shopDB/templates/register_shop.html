@@ -1,0 +1,308 @@
+<html>
+
+<!-- {%load staticfiles %} -->
+{% load static from staticfiles %}
+
+<head>
+<title>Leaflet Address Lookup and Coordinates</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+
+
+<link href="{% static '/shop_db/css/bootstrap_4.css' %}" rel="stylesheet" id="bootstrap-css">
+<link href="{% static '/shop_db/css/shop_user_profile_up.css' %}" rel="stylesheet" id="shop_user">
+<script src="{% static '/shop_db/js/bootstrap_4.js' %}"></script>
+<script src="{% static '/shop_db/js/jquery3_2_1.js' %}"></script>
+<!------ Include the above in your HEAD tag ----------
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!------ Include the above in your HEAD tag ---------->
+
+<style type="text/css">
+html, body { width:100%;padding:0;margin:0; }
+.container { align:right; width:100%;max-width:1200px;padding:1% 2% 2%;margin:5 auto }
+#lat, #lon { text-align:right }
+#map { align:right; width:100%;height:40%;padding:0;margin:0; }
+.address { cursor:pointer }
+.address:hover { color:#AA0000 }
+</style>
+</head>
+<body>
+
+<!-- **************************************************************************************************** -->
+<div class="container" width="100%">		
+
+						<!-- ********************************************************************************* -->
+						<!--Br><Br><Br><Br><Br><Br><Br><Br-->
+						<div align="right" class="container">							
+							
+							<!--br /-->
+							<p align="left"><font size="5"><b>Place Your Shop here</b></font></p>
+
+							<div id="map"></div>
+							
+							
+							<div id="search">
+							<p align="right"><font size="5">Search for Nearby Area</font></p>
+							<input type="text" name="addr" value="" id="addr" size="58" />
+							<button type="button" onclick="addr_search();updateInput(this.value);">Search</button>
+							<div align="right" id="results"></div>
+							</div>
+
+							<br />
+							
+						</div>
+					<!-- ********************************************************************************* -->
+		
+	<div class="row justify-content-left">
+	
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-header"><font size="7"><b>Register</b></font>
+						</div>
+						<div class="card-body">
+							<form class="form-horizontal" action="/shop/signup/" method="POST">
+										{% csrf_token %}
+										
+										
+										
+								<div class="form-group">
+									<label for="name" class="cols-sm-2 control-label">Shop Name</label>
+									<div class="cols-sm-10">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+											<input type="text" class="form-control" name="shop_name" id="shop_name" placeholder="Enter your Shop Name" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="name" class="cols-sm-2 control-label">Proprietor</label>
+									<div class="cols-sm-10">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+											<input type="text" class="form-control" name="proprietor_name" id="proprietor_name" placeholder="Enter your proprietor's Name" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="name" class="cols-sm-2 control-label">Location</label>
+									<div class="cols-sm-10">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+											<input type="text" class="form-control" name="loct" id="loct" placeholder="Enter your Shop's Location address" />
+										</div>
+									</div>
+								</div>
+								
+								
+								
+								
+								<div class="form-group">
+									<label for="name" class="cols-sm-2 control-label">Coordinates</label>
+									<div class="cols-sm-10">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+											<input type="text" name="lat" id="lat" size=12 value="">
+											<span style="display:inline-block; width:30;"></span>
+											<input type="text" name="lon" id="lon" size=12 value="">
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="email" class="cols-sm-2 control-label">Shop Contact No</label>
+									<div class="cols-sm-10">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+											<input type="text" class="form-control" name="mob" id="mob" placeholder="Enter your Mobile No" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="email" class="cols-sm-2 control-label">Shop Email</label>
+									<div class="cols-sm-10">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+											<input type="email" class="form-control" name="email" id="email" placeholder="Enter your Email" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="username" class="cols-sm-2 control-label">Login Username</label>
+									<div class="cols-sm-10">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+											<input type="text" class="form-control" name="username" id="username" placeholder="Enter your Username" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="password" class="cols-sm-2 control-label">Password</label>
+									<div class="cols-sm-10">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+											<input type="password" class="form-control" name="password_1" id="password_1" placeholder="Enter your Password" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+									<div class="cols-sm-10">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+											<input type="password" class="form-control" name="password_2" id="password_2" placeholder="Confirm your Password" />
+										</div>
+									</div>
+								</div>
+								
+								
+								<!--  alert input-->
+								<div class="form-group" >
+								  {% if messages %}
+									<ul class="messages">
+										{% for mess in messages %}
+										<li>
+											<div class="alert alert-success alert-dismissable"><p align="center"><b> {{mess}} </b></p> </div>
+										</li>
+										{% endfor %}
+									</ul>
+								  {% endif %}
+								</div>
+					
+					
+								<div class="form-group ">
+									<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+								</div>
+								<div class="login-register">
+									<a href="{% url 'shopDB:login_shop' %}">Login</a>
+								</div>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			
+			
+				<div class="col-md-7">
+					<!-- ********************************************************************************* --
+					<Br><Br><Br><Br><Br><Br><Br><Br>
+						<div align="right" class="container">							
+							<p align="right"><font size="5">Place Your Shop here</font></p>
+							<br />
+
+							<div id="map"></div>
+							
+							<p align="right"><font size="5">Search for Nearby Area</font></p>
+							<div id="search">
+							<input type="text" name="addr" value="" id="addr" size="58" />
+							<button type="button" onclick="addr_search();">Search</button>
+							<div align="right" id="results"></div>
+							</div>
+
+							<br />
+							
+						</div>
+					<!-- ********************************************************************************* -->
+				</div>
+				
+	</div>
+</div>
+
+<!-- ****************************************************************************************** -->
+
+
+
+<script type="text/javascript">
+//Adding Location
+function updateInput(ish){
+	var price = document.getElementById("addr").value;
+	document.getElementById("loct").value = price;
+}
+
+// New York
+var startlat = 23.72691819;
+var startlon = 90.38968420;
+
+var options = {
+ center: [startlat, startlon],
+ zoom: 9
+}
+
+document.getElementById('lat').value = startlat;
+document.getElementById('lon').value = startlon;
+
+var map = L.map('map', options);
+var nzoom = 12;
+
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: 'OSM'}).addTo(map);
+
+var myMarker = L.marker([startlat, startlon], {title: "Coordinates", alt: "Coordinates", draggable: true}).addTo(map).on('dragend', function() {
+ var lat = myMarker.getLatLng().lat.toFixed(8);
+ var lon = myMarker.getLatLng().lng.toFixed(8);
+ var czoom = map.getZoom();
+ if(czoom < 18) { nzoom = czoom + 2; }
+ if(nzoom > 18) { nzoom = 18; }
+ if(czoom != 18) { map.setView([lat,lon], nzoom); } else { map.setView([lat,lon]); }
+ document.getElementById('lat').value = lat;
+ document.getElementById('lon').value = lon;
+ myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
+});
+
+function chooseAddr(lat1, lng1)
+{
+ myMarker.closePopup();
+ map.setView([lat1, lng1],18);
+ myMarker.setLatLng([lat1, lng1]);
+ lat = lat1.toFixed(8);
+ lon = lng1.toFixed(8);
+ document.getElementById('lat').value = lat;
+ document.getElementById('lon').value = lon;
+ myMarker.bindPopup("Lat " + lat + "<br />Lon " + lon).openPopup();
+}
+
+function myFunction(arr)
+{
+ var out = "<br />";
+ var i;
+
+ if(arr.length > 0)
+ {
+  for(i = 0; i < arr.length; i++)
+  {
+   out += "<div class='address' title='Show Location and Coordinates' onclick='chooseAddr(" + arr[i].lat + ", " + arr[i].lon + ");return false;'>" + arr[i].display_name + "</div>";
+  }
+  out += "<br /><button type='button' onclick=''>Show Nearby Places</button>"
+  document.getElementById('results').innerHTML = out;
+ }
+ else
+ {
+  document.getElementById('results').innerHTML = "Sorry, no results...";
+ }
+
+}
+
+function addr_search()
+{
+ var inp = document.getElementById("addr");
+ var xmlhttp = new XMLHttpRequest();
+ var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp.value;
+ xmlhttp.onreadystatechange = function()
+ {
+   if (this.readyState == 4 && this.status == 200)
+   {
+    var myArr = JSON.parse(this.responseText);
+    myFunction(myArr);
+   }
+ };
+ xmlhttp.open("GET", url, true);
+ xmlhttp.send();
+}
+
+</script>
+
+</body>
+</html>

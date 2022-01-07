@@ -1,0 +1,97 @@
+
+
+<!DOCTYPE html>
+
+<html>
+
+<!-- {%load staticfiles %} -->
+{% load static from staticfiles %}
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<link href="{% static '/shop_db/css/bootstrap_4.css' %}" rel="stylesheet" id="bootstrap-css">
+<link href="{% static '/shop_db/css/shop_user_profile_up.css' %}" rel="stylesheet" id="shop_user">
+<script src="{% static '/shop_db/js/bootstrap_4.js' %}"></script>
+<script src="{% static '/shop_db/js/jquery3_2_1.js' %}"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+</head>
+
+<body>
+
+	<div class="container" style="padding-top: 10px; padding-bottom: 10px;">
+		
+		<div style="height:50px"> </div>
+		<h1 class="page-header" style="color:blue" align="left"><b>Add Discount</b></h1>
+
+		<form class="form-horizontal" action="/online/" method="POST">
+				{% csrf_token %}
+		<fieldset>
+
+		<!-- Text input-->
+		<div class="form-group">
+		  <div class="col-md-4">
+		  </div>
+		</div>
+		
+
+		<!-- Text input-->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="percentage">PERCENTAGE</label>
+		  <div class="col-md-4">
+		  <input id="percentage" name="percentage" placeholder="Discount Percentage" class="form-control input-md" required="" type="number" step="0.01" min="0">
+		  </div>
+		</div>
+
+
+		<!-- Select Basic -->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="mx_amnt">MAX DISCOUNT</label>
+		  <div class="col-md-4">
+			<input id="mx_amnt" name="mx_amnt" placeholder="Maximum Discount" class="form-control input-md" type="number" min="0">
+			<!-- <select id="product_categorie" name="product_categorie" class="form-control"> </select> -->
+		  </div>
+		</div>
+
+		<!-- Text input-->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="disc_amnt">DISCOUNT AMOUNT</label>
+		  <div class="col-md-4">
+		  <input id="disc_amnt" name="disc_amnt" placeholder="Total Discount" class="form-control input-md" type="number" min="0">
+
+		  </div>
+		</div>
+		
+		<!--  alert input-->
+					<div class="form-group" >
+						<div class="col-md-4"> </div>
+						<div class="col-md-4">
+					  {% if messages %}
+						<ul class="messages">
+							{% for mess in messages %}
+							<li>
+								<div class="alert alert-success alert-dismissable"><p align="center"><b> {{mess}} </b></p> </div>
+							</li>
+							{% endfor %}
+						</ul>
+					  {% endif %}
+					  </div>
+					</div>
+		
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="singlebutton"></label>
+		  <div class="col-md-4">
+			<button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">ADD DISCOUNT</button>
+		  </div>
+		</div>
+
+		</fieldset>
+		</form>
+	</div>
+
+</body>
+</html>
