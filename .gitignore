@@ -1,0 +1,22 @@
+# always update the gitignore file before adding the file to be ignored
+
+# Default ignored files
+/shelf/
+/workspace.xml
+/.idea # file
+.idea/ # folder
+venv/ 
+*.mp4 # RE files - is not working
+*.pdf
+
+all_queries.txt
+campaign and mail sms-20210602_125915-Meeting Recording.mp4
+
+New EZAssist/web/check if ignored.txt
+
+# Ignore the node_modules directory
+GRE Resources
+TOEFL Resources - Dipu Hasan
+miniMe/web/node_modules/
+EZAssist/web/node_modules/
+InsightMining/web/node_modules/
